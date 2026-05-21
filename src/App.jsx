@@ -1,104 +1,186 @@
-export default function App() {
+import { useState } from "react";
+
+function App() {
+  const [verCatalogo, setVerCatalogo] = useState(false);
+
   const productos = [
-    {
-      nombre: "Vela Vainilla",
-      aroma: "Aroma dulce y relajante",
-      precio: "S/25"
-    },
-    {
-      nombre: "Vela Lavanda",
-      aroma: "Relajación y descanso",
-      precio: "S/30"
-    },
-    {
-      nombre: "Vela Canela",
-      aroma: "Aroma cálido y elegante",
-      precio: "S/28"
-    },
-    {
-      nombre: "Vela Coco",
-      aroma: "Fresco tropical",
-      precio: "S/26"
-    }
+    { nombre: "Vela Margarita", precio: "S/25", img: "🌼" },
+    { nombre: "Vela Coco", precio: "S/20", img: "🥥" },
+    { nombre: "Vela Bubble", precio: "S/40", img: "✨" },
+    { nombre: "Vela Mariposa", precio: "S/40", img: "🦋" },
+    { nombre: "Velas Peonías", precio: "S/25", img: "🌸" },
+    { nombre: "Ramo Tulipanes", precio: "S/19", img: "🌷" },
   ];
 
   return (
-    <div className="min-h-screen bg-[#f7f1eb] text-gray-800">
+    <div
+      style={{
+        fontFamily: "Arial",
+        background: "#f7f2ee",
+        color: "#2d1f1f",
+        minHeight: "100vh",
+      }}
+    >
 
-      {/* Navbar */}
-      <header className="flex justify-between items-center px-10 py-6 bg-white shadow-md">
-        <h1 className="text-3xl font-bold text-[#7a4e2d]">
-          Velas Aura
-        </h1>
+      {/* ===== INICIO ===== */}
+      {!verCatalogo && (
+        <section
+          style={{
+            height: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
+            background: "linear-gradient(135deg, #e8d9c8, #f7f2ee)",
+            padding: "20px",
+          }}
+        >
+          <h1
+            style={{
+              fontSize: "72px",
+              letterSpacing: "5px",
+              color: "#2f1f1f",
+              textShadow: "2px 2px 12px rgba(0,0,0,0.15)",
+              marginBottom: "10px",
+            }}
+          >
+            JIREH OLAM
+          </h1>
 
-        <nav className="flex gap-8 text-lg">
-          <a href="#" className="hover:text-[#b37b52]">Inicio</a>
-          <a href="#" className="hover:text-[#b37b52]">Catálogo</a>
-          <a href="#" className="hover:text-[#b37b52]">Nosotros</a>
-          <a href="#" className="hover:text-[#b37b52]">Contacto</a>
-        </nav>
-      </header>
+          <p
+            style={{
+              fontSize: "18px",
+              opacity: 0.75,
+              marginBottom: "30px",
+            }}
+          >
+            Velas artesanales que iluminan momentos especiales
+          </p>
 
-      {/* Hero */}
-      <section className="text-center py-28 px-6">
-        <h2 className="text-6xl font-extrabold text-[#7a4e2d] mb-6">
-          Velas Aromáticas Premium
-        </h2>
+          <button
+            onClick={() => setVerCatalogo(true)}
+            style={{
+              padding: "14px 36px",
+              border: "none",
+              background: "#3e2f2f",
+              color: "white",
+              fontSize: "16px",
+              borderRadius: "12px",
+              cursor: "pointer",
+              boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
+            }}
+          >
+            Ver Catálogo
+          </button>
+        </section>
+      )}
 
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-8">
-          Aromas elegantes y relajantes para transformar cualquier espacio
-          en un ambiente único y acogedor.
-        </p>
+      {/* ===== CATÁLOGO ===== */}
+      {verCatalogo && (
+        <section style={{ padding: "50px 20px" }}>
 
-        <button className="mt-10 bg-[#7a4e2d] hover:bg-[#5f3d23] text-white px-8 py-4 rounded-2xl text-lg shadow-lg transition">
-          Ver Catálogo
-        </button>
-      </section>
-
-      {/* Productos */}
-      <section className="px-10 pb-24">
-        <h3 className="text-4xl font-bold text-center mb-14 text-[#7a4e2d]">
-          Productos Destacados
-        </h3>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {productos.map((producto, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-3xl shadow-lg overflow-hidden hover:scale-105 transition"
+          {/* HEADER */}
+          <div style={{ textAlign: "center", marginBottom: "25px" }}>
+            <h2
+              style={{
+                fontSize: "44px",
+                color: "#2f1f1f",
+                marginBottom: "5px",
+                letterSpacing: "2px",
+              }}
             >
-              <div className="h-64 bg-[#e8d6c7] flex items-center justify-center text-2xl font-bold text-[#7a4e2d]">
-                🕯️
-              </div>
+              Catálogo
+            </h2>
 
-              <div className="p-6">
-                <h4 className="text-2xl font-bold mb-2">
-                  {producto.nombre}
-                </h4>
+            <p style={{ color: "#6b5a5a", fontSize: "14px" }}>
+              Colección artesanal premium
+            </p>
+          </div>
 
-                <p className="text-gray-500 mb-4">
-                  {producto.aroma}
+          {/* BOTÓN VOLVER */}
+          <div style={{ textAlign: "center", marginBottom: "30px" }}>
+            <button
+              onClick={() => setVerCatalogo(false)}
+              style={{
+                padding: "10px 16px",
+                border: "none",
+                background: "#3e2f2f",
+                color: "white",
+                borderRadius: "8px",
+                cursor: "pointer",
+              }}
+            >
+              ← Volver al inicio
+            </button>
+          </div>
+
+          {/* PRODUCTOS */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+              gap: "28px",
+              maxWidth: "1100px",
+              margin: "0 auto",
+            }}
+          >
+            {productos.map((p, index) => (
+              <div
+                key={index}
+                style={{
+                  background: "white",
+                  padding: "25px",
+                  borderRadius: "20px",
+                  textAlign: "center",
+                  boxShadow: "0 12px 30px rgba(0,0,0,0.08)",
+                  transition: "0.3s",
+                  cursor: "pointer",
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.transform = "translateY(-5px)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.transform = "translateY(0)")
+                }
+              >
+                <div style={{ fontSize: "60px" }}>{p.img}</div>
+
+                <h3 style={{ marginTop: "10px" }}>{p.nombre}</h3>
+
+                <p style={{ fontWeight: "bold", fontSize: "17px" }}>
+                  {p.precio}
                 </p>
 
-                <div className="flex justify-between items-center">
-                  <span className="text-2xl font-bold text-[#7a4e2d]">
-                    {producto.precio}
-                  </span>
-
-                  <button className="bg-green-500 hover:bg-green-400 text-white px-4 py-2 rounded-xl">
-                    WhatsApp
+                {/* WHATSAPP */}
+                <a
+                  href={`https://wa.me/51912492522?text=Hola, quiero información sobre ${p.nombre}`}
+                  target="_blank"
+                  style={{ textDecoration: "none" }}
+                >
+                  <button
+                    style={{
+                      marginTop: "12px",
+                      padding: "10px 16px",
+                      border: "none",
+                      background: "#25D366",
+                      color: "white",
+                      borderRadius: "10px",
+                      cursor: "pointer",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Pedir por WhatsApp
                   </button>
-                </div>
+                </a>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      )}
 
-      {/* Footer */}
-      <footer className="bg-[#7a4e2d] text-white text-center py-8">
-        <p>© 2026 Velas Aura - Todos los derechos reservados.</p>
-      </footer>
     </div>
   );
 }
+
+export default App;
