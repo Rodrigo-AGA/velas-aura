@@ -5,6 +5,40 @@ function App() {
   const [pantalla, setPantalla] = useState("inicio");
   const [categoriaActual, setCategoriaActual] = useState("");
 
+  const aromas = [
+    "Sin aroma",
+    "Bebe talco",
+    "Frutal",
+    "Vainilla",
+    "Manzanita verde",
+    "Frutos rojos",
+    "Naranja",
+    "Fresa madura",
+    "Chicle",
+    "Limon citrico",
+    "Floral",
+    "Tuti fruti",
+    "Douce",
+    "Brisa marina",
+    "Bergamota",
+    "Mil flores",
+    "Crema de almendras",
+    "Rosas",
+    "Chanel",
+    "Citronela",
+    "Chrismast cookies",
+    "Cinnamon",
+    "Rosas con chocolate",
+    "Milk and coffe",
+    "Menta y eucalipto",
+    "Coconut",
+    "Lavanda",
+  ];
+
+  const [cantidades, setCantidades] = useState({});
+  const [aromasSeleccionados, setAromasSeleccionados] = useState({});
+  const [metodosEntrega, setMetodosEntrega] = useState({});
+
   const categorias = [
     {
       nombre: "Ramos",
@@ -30,28 +64,28 @@ function App() {
 
   const productos = {
     Ramos: [
-      { nombre: "Ramo Tulipanes", precio: "S/19", img: "🌷" },
-      { nombre: "Ramo Rosas", precio: "S/35", img: "🌹" },
+      { nombre: "Ramo Tulipanes", precio: 19, img: "🌷" },
+      { nombre: "Ramo Rosas", precio: 35, img: "🌹" },
     ],
 
     "Velas Aromáticas": [
-      { nombre: "Vela Coco", precio: "S/20", img: "🥥" },
-      { nombre: "Vela Lavanda", precio: "S/25", img: "💜" },
+      { nombre: "Vela Coco", precio: 20, img: "🥥" },
+      { nombre: "Vela Lavanda", precio: 25, img: "💜" },
     ],
 
     "Velas con Diseño": [
-      { nombre: "Vela Mariposa", precio: "S/40", img: "🦋" },
-      { nombre: "Vela Bubble", precio: "S/40", img: "✨" },
+      { nombre: "Vela Mariposa", precio: 40, img: "🦋" },
+      { nombre: "Vela Bubble", precio: 40, img: "✨" },
     ],
 
     Recuerditos: [
-      { nombre: "Mini Vela", precio: "S/10", img: "🎀" },
-      { nombre: "Caja Floral", precio: "S/15", img: "🎁" },
+      { nombre: "Mini Vela", precio: 10, img: "🎀" },
+      { nombre: "Caja Floral", precio: 15, img: "🎁" },
     ],
 
     "Velas Decorativas": [
-      { nombre: "Vela Peonía", precio: "S/25", img: "🌸" },
-      { nombre: "Vela Margarita", precio: "S/25", img: "🌼" },
+      { nombre: "Vela Peonía", precio: 25, img: "🌸" },
+      { nombre: "Vela Margarita", precio: 25, img: "🌼" },
     ],
   };
 
@@ -82,7 +116,7 @@ function App() {
 
           <h1
             style={{
-              fontSize: "clamp(45px, 10vw, 80px)",
+              fontSize: "clamp(40px, 10vw, 80px)",
               letterSpacing: "5px",
               color: "#2f1f1f",
               marginBottom: "10px",
@@ -224,64 +258,204 @@ function App() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
               gap: "30px",
-              maxWidth: "1100px",
+              maxWidth: "1200px",
               margin: "0 auto",
             }}
           >
 
-            {productos[categoriaActual].map((p, index) => (
-              <div
-                key={index}
-                style={{
-                  background: "white",
-                  padding: "25px",
-                  borderRadius: "20px",
-                  textAlign: "center",
-                  boxShadow: "0 10px 25px rgba(0,0,0,0.08)",
-                }}
-              >
+            {productos[categoriaActual].map((p, index) => {
 
-                <div style={{ fontSize: "65px" }}>
-                  {p.img}
-                </div>
+              const cantidad = cantidades[p.nombre] || 1;
+              const aroma = aromasSeleccionados[p.nombre] || "Sin aroma";
+              const metodo = metodosEntrega[p.nombre] || "Delivery";
+              const total = p.precio * cantidad;
 
-                <h3 style={{ marginTop: "10px" }}>
-                  {p.nombre}
-                </h3>
+              const mensaje = `
+Hola, quiero hacer un pedido ✨
 
-                <p
+📦 Producto: ${p.nombre}
+
+🌸 Aroma: ${aroma}
+
+🔢 Cantidad: ${cantidad}
+
+💰 Total aproximado: S/${total}
+
+🚚 Método de entrega: ${metodo}
+
+Gracias 😊
+`;
+
+              return (
+                <div
+                  key={index}
                   style={{
-                    fontWeight: "bold",
-                    fontSize: "18px",
+                    background: "white",
+                    padding: "25px",
+                    borderRadius: "20px",
+                    textAlign: "center",
+                    boxShadow: "0 10px 25px rgba(0,0,0,0.08)",
                   }}
                 >
-                  {p.precio}
-                </p>
 
-                <a
-                  href={`https://wa.me/51912492522?text=Hola, quiero información sobre ${p.nombre}`}
-                  target="_blank"
-                  style={{ textDecoration: "none" }}
-                >
-                  <button
+                  <div style={{ fontSize: "65px" }}>
+                    {p.img}
+                  </div>
+
+                  <h3 style={{ marginTop: "10px" }}>
+                    {p.nombre}
+                  </h3>
+
+                  <p
                     style={{
-                      marginTop: "10px",
-                      padding: "12px 20px",
-                      border: "none",
-                      background: "#25D366",
-                      color: "white",
-                      borderRadius: "10px",
-                      cursor: "pointer",
+                      fontWeight: "bold",
+                      fontSize: "22px",
                     }}
                   >
-                    Pedir por WhatsApp
-                  </button>
-                </a>
+                    S/{p.precio}
+                  </p>
 
-              </div>
-            ))}
+                  {/* AROMA */}
+                  <select
+                    value={aroma}
+                    onChange={(e) =>
+                      setAromasSeleccionados({
+                        ...aromasSeleccionados,
+                        [p.nombre]: e.target.value,
+                      })
+                    }
+                    style={{
+                      width: "100%",
+                      padding: "12px",
+                      borderRadius: "10px",
+                      border: "1px solid #ddd",
+                      marginTop: "15px",
+                    }}
+                  >
+                    {aromas.map((a, i) => (
+                      <option key={i}>{a}</option>
+                    ))}
+                  </select>
+
+                  {/* CANTIDAD */}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      gap: "15px",
+                      marginTop: "18px",
+                    }}
+                  >
+
+                    <button
+                      onClick={() =>
+                        setCantidades({
+                          ...cantidades,
+                          [p.nombre]: Math.max(1, cantidad - 1),
+                        })
+                      }
+                      style={{
+                        width: "35px",
+                        height: "35px",
+                        borderRadius: "50%",
+                        border: "none",
+                        background: "#3e2f2f",
+                        color: "white",
+                        cursor: "pointer",
+                      }}
+                    >
+                      -
+                    </button>
+
+                    <span style={{ fontSize: "18px" }}>
+                      {cantidad}
+                    </span>
+
+                    <button
+                      onClick={() =>
+                        setCantidades({
+                          ...cantidades,
+                          [p.nombre]: cantidad + 1,
+                        })
+                      }
+                      style={{
+                        width: "35px",
+                        height: "35px",
+                        borderRadius: "50%",
+                        border: "none",
+                        background: "#3e2f2f",
+                        color: "white",
+                        cursor: "pointer",
+                      }}
+                    >
+                      +
+                    </button>
+
+                  </div>
+
+                  {/* ENTREGA */}
+                  <select
+                    value={metodo}
+                    onChange={(e) =>
+                      setMetodosEntrega({
+                        ...metodosEntrega,
+                        [p.nombre]: e.target.value,
+                      })
+                    }
+                    style={{
+                      width: "100%",
+                      padding: "12px",
+                      borderRadius: "10px",
+                      border: "1px solid #ddd",
+                      marginTop: "18px",
+                    }}
+                  >
+                    <option>Delivery</option>
+                    <option>Recojo en tienda</option>
+                    <option>Envío por Shalom</option>
+                  </select>
+
+                  {/* TOTAL */}
+                  <p
+                    style={{
+                      marginTop: "18px",
+                      fontWeight: "bold",
+                      fontSize: "20px",
+                    }}
+                  >
+                    Total: S/{total}
+                  </p>
+
+                  {/* WHATSAPP */}
+                  <a
+                    href={`https://wa.me/51912492522?text=${encodeURIComponent(mensaje)}`}
+                    target="_blank"
+                    style={{ textDecoration: "none" }}
+                  >
+                    <button
+                      style={{
+                        marginTop: "10px",
+                        padding: "14px 20px",
+                        width: "100%",
+                        border: "none",
+                        background: "#25D366",
+                        color: "white",
+                        borderRadius: "12px",
+                        cursor: "pointer",
+                        fontSize: "16px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Pedir por WhatsApp
+                    </button>
+                  </a>
+
+                </div>
+              );
+            })}
 
           </div>
 
